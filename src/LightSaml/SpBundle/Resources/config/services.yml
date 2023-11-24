@@ -3,6 +3,12 @@ parameters:
     lightsaml.route.login_check: lightsaml_sp.login_check
 
 services:
+    LightSaml\SpBundle\Controller\DefaultController:
+        public: true
+        tags: [ 'controller.service_arguments' ]
+        arguments:
+            $discoveryRoute: "%lightsaml_sp.route.discovery%"
+
     lightsaml_sp.username_mapper.simple:
         class: LightSaml\SpBundle\Security\User\SimpleUsernameMapper
         arguments:
