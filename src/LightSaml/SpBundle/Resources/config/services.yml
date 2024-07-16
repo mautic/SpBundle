@@ -5,15 +5,14 @@ parameters:
 services:
     LightSaml\SpBundle\Controller\DefaultController:
         public: true
-        tags: [ 'controller.service_arguments' ]
+        tags: ['controller.service_arguments']
         calls:
             - [ setContainer, [ "@service_container" ] ]
         arguments:
-            $metadataProfileBuilder: '@ligthsaml.profile.metadata'
-            $profileLoginFactory: '@ligthsaml.profile.login_factory'
-            $storeContainer: "@lightsaml.container.store"
-            $partyContainer: "@lightsaml.container.party"
-            $discoveryRoute: "%lightsaml_sp.route.discovery%"
+            - "@lightsaml.container.build"
+            - "@ligthsaml.profile.login_factory"
+            - "@ligthsaml.profile.metadata"
+            - "%lightsaml_sp.route.discovery%"
 
     lightsaml_sp.username_mapper.simple:
         class: LightSaml\SpBundle\Security\User\SimpleUsernameMapper
